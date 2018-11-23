@@ -1,0 +1,9 @@
+{% extends "admin/base.html" %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Teach Django site admin panel') }}{% endblock %}
+
+{% block branding %}
+<h1 id="site-name"><a href="{% url 'admin:index' %}">{{ site_header|default:_('Teach Django site admin panel') }}</a></h1><!--Django administration-->
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
