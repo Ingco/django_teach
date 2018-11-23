@@ -1,0 +1,6 @@
+.git
+# .gitignore
+.idea
+*/*.pyc
+teachDjango/*.pyc
+*.pyc
