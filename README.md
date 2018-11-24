@@ -8,7 +8,6 @@ Package             Version
 ------------------- ----------
 Django              1.11.16   
 django-admin-tools  0.8.1     
-django-telegrambot  1.0.1     
 djangorestframework 3.8.2 
 pip                 18.1   
 setuptools          40.6.2  
