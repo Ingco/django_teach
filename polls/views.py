@@ -2,11 +2,13 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from .models import Question, Choice
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.renderers import JSONRenderer
 
 # Create your views here.
 
@@ -73,3 +75,24 @@ class ResultView(generic.DetailView):
         return Question.objects.filter(
             pub_date__lte=timezone.now()
         )
+
+
+@csrf_exempt
+def polls_list(request):
+    from serializers import QuestionSerializer
+    if request.method == 'GET':
+        question = Question.objects.all()
+        serializer = QuestionSerializer(question, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
+@csrf_exempt
+def polls_detail(request, pk):
+    from serializers import QuestionSerializer
+    try:
+        question = Question.objects.get(pk=pk)
+    except Question.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = QuestionSerializer(question)
+        return JsonResponse(serializer.data)
